@@ -1,35 +1,47 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.iniciosesionjavafx;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
-public class PrimaryController implements Initializable {
+/**
+ *
+ * @author apena
+ */
+public class PrimaryController {
 
     @FXML
-    private Button btnInicioSesion, btnRegistrarse;
-    
-    
-    
+    private Button btnInicioSesion;
+    @FXML
+    private Button btnRegistrarse;
     @FXML
     private StackPane containerForm;
-    
-    
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @FXML
+    private void ClickInicioSesion(ActionEvent event)  {
+        
+        try {
+            App.setRoot("FormaInicioSesion");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 
     @FXML
-    private void clicBtnInicioSesion(ActionEvent event) {
+    private void ClickRegistrarse(ActionEvent event) {
         
-        
-        
+        try {
+            App.setRoot("FormaRegistrarse");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
-    }
+    
+}

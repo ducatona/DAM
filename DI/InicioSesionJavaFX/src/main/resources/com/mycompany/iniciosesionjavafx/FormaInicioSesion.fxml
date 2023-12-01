@@ -62,7 +62,7 @@
             </StackPane>
          </children>
       </VBox>
-      <CheckBox fx:id="checkVerContraseña" mnemonicParsing="false" text="Ver Contraseña">
+      <CheckBox fx:id="checkVerContraseña" mnemonicParsing="false" onAction="#CheckContraseña" text="Ver Contraseña">
          <font>
             <Font size="14.0" />
          </font>
@@ -75,12 +75,20 @@
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <Button fx:id="btnInicioSesion" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: black;" text="Entrar" textFill="WHITE">
+            <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#clickEntrar" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: black;" text="Entrar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnLimpiar" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: black;" text="Limpiar" textFill="WHITE">
+            <Button fx:id="btnLimpiar" mnemonicParsing="false" onAction="#clickLimpiar" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: black;" text="Limpiar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#clickVolver" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: black;" text="Volver" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

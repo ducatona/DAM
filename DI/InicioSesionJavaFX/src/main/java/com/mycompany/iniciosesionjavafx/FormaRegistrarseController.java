@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
@@ -11,36 +11,39 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import metodos.Validaciones;
 
+import javafx.fxml.FXML;
+
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
  *
  * @author apena
  */
-public class FormaInicioSesionController implements Initializable {
+public class FormaRegistrarseController implements Initializable {
+
 
     @FXML
-    private VBox panelInicioSesión;
+    private VBox panelRegistrarse;
     @FXML
-    private TextField txtInicioSesion;
+    private TextField txtCorreoElectronico;
     @FXML
-    private PasswordField txtContraseñaIs;
+    private TextField txtUsuarioR;
     @FXML
-    private TextField txtContraseñaIsM;
+    private TextField txtContraseña;
     @FXML
-    private CheckBox checkVerContraseña;
+    private TextField txtConfirmacionContraseña;
     @FXML
-    private Button btnLimpiar;
+    private Button btnRegistrar;
     @FXML
     private Button btnVolver;
     @FXML
-    private Button btnEntrar;
-
+    private Button btnLimpiarRegistro;
     /**
      * Initializes the controller class.
      */
@@ -48,23 +51,7 @@ public class FormaInicioSesionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-    @FXML
-    private void CheckContraseña(ActionEvent event) {
-        
-      String contraseña = txtContraseñaIsM.getText();
-        
-        txtContraseñaIsM.setText(contraseña);
-        
-    }
-
-    @FXML
-    private void clickLimpiar(ActionEvent event) {
-        
-        txtContraseñaIsM.setText("");
-        txtInicioSesion.setText("");
-    }
-
+    
     @FXML
     private void clickVolver(ActionEvent event) {
         
@@ -76,13 +63,15 @@ public class FormaInicioSesionController implements Initializable {
     }
 
     @FXML
-    private void clickEntrar(ActionEvent event) {
-        
-        Validaciones v = new Validaciones();
-        
-        v.validarUser(txtInicioSesion);
-        
-        
-    }
+    private void clickLimpiarR(ActionEvent event) {
     
+        
+        
+        txtUsuarioR.setText("");
+        txtCorreoElectronico.setText("");
+        txtContraseña.setText("");
+        txtConfirmacionContraseña.setText("");
+    
+    }
+
 }

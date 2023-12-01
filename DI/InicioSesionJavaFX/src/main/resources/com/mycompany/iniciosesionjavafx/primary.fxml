@@ -17,10 +17,11 @@
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="60.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints />
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: black;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: black;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <children>
             <Label text="Bienvenido a GPT-Abusers" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
@@ -43,12 +44,12 @@
                   <Insets left="40.0" right="40.0" />
                </padding>
                <children>
-                  <Button fx:id="btnInicioSesion" mnemonicParsing="false" onAction="#clicBtnInicioSesion" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Inicio Sesión" textFill="WHITE">
+                  <Button fx:id="btnInicioSesion" mnemonicParsing="false" onAction="#ClickInicioSesion" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Inicio Sesión" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnRegistrarse" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Regístrate" textFill="WHITE" wrapText="true">
+                  <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#ClickRegistrarse" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Regístrate" textFill="WHITE" wrapText="true">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -60,7 +61,7 @@
             </HBox>
          </children>
       </VBox>
-      <StackPane fx:id="containerForm" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+      <StackPane fx:id="containerForm" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets left="1.0" />
