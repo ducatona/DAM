@@ -46,16 +46,26 @@ public class FormaInicioSesionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        Validaciones v = new Validaciones();
+        
+        v.mContraseña(txtContraseñaIs, txtContraseñaIsM, checkVerContraseña);
+        
+        
+        
+        
+        
+        
+        
     }    
 
     @FXML
     private void CheckContraseña(ActionEvent event) {
-        
+      /* 
       String contraseña = txtContraseñaIsM.getText();
         
         txtContraseñaIsM.setText(contraseña);
-        
+        */
     }
 
     @FXML

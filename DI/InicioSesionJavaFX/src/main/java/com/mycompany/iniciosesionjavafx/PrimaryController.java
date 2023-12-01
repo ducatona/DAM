@@ -4,6 +4,7 @@
  */
 package com.mycompany.iniciosesionjavafx;
 
+import consultasBBDD.Login;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,9 +37,11 @@ public class PrimaryController {
 
     @FXML
     private void ClickRegistrarse(ActionEvent event) {
-        
+        Login.login();
         try {
             App.setRoot("FormaRegistrarse");
+            
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }

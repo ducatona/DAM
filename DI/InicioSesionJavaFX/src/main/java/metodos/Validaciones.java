@@ -3,13 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package metodos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 
+import modelo.Generos;
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import modelo.Nacionalidad;
+
+
+/**
+ *
+ * @author apena
+ */
 public class Validaciones {
 
     // Constructor por defecto
+    /**
+     *
+     */
     public Validaciones() {
         // Puedes agregar lógica de inicialización aquí si es necesario
     }
@@ -79,8 +99,8 @@ public class Validaciones {
      * un elemento.
      *
      * @param cbox ComboBox a validar.
-     * @return Devuelve FALSE si no se ha seleccionado ningún elemento, TRUE
-     * en los demás casos.
+     * @return Devuelve FALSE si no se ha seleccionado ningún elemento, TRUE en
+     * los demás casos.
      */
     public boolean validarCbox(ComboBox<String> cbox) {
         if (cbox.getSelectionModel().isEmpty()) {
@@ -91,7 +111,6 @@ public class Validaciones {
     }
 
     // Métodos auxiliares:
-
     /**
      * Método para comprobar si un campo de texto está vacío.
      *
@@ -118,4 +137,96 @@ public class Validaciones {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    /**
+     * Metodo para que no se vea la contraseña que estabamos añadiendo, y con el
+     * que podemos ver al darle al checkbox, la contraseña introducida o por
+     * introducir.
+     *
+     * @param pass
+     * @param text
+     * @param check
+     */
+    public void mContraseña(PasswordField pass, TextField text, CheckBox check) {
+        //dejamos de hacer vissible el texto
+        text.setVisible(false);
+        //le decimos que no tenga en cuenta el nodo y no lo haga visible
+        text.setManaged(false);
+        //propiedad del check
+        text.managedProperty().bind(check.selectedProperty());
+        //hacemos visible con la conexion
+        text.visibleProperty().bind(check.selectedProperty());
+        // con el metodo bind de unir , necesitariamos el bidireccional para que al darle a la propidad checkbox,
+        //se junte todo y lo muestre a su vez
+        text.textProperty().bindBidirectional(pass.textProperty());
+
+    }
+    
+      public  void InsertarRegistro(EntityManager em) {
+        Query insercion = em.createNativeQuery("INSERT INTO Categoria (nombre) VALUES (:nombre);");
+        em.getTransaction().begin();
+        insercion.setParameter("nombre", "Videojuegos");
+        insercion.executeUpdate();
+        em.getTransaction().commit();
+        
+        System.out.println("Categoria nueva insertada correctamente");
+
+    }
+      
+      
+      public void Select1(EntityManager em) {
+        Query c1 = em.createNamedQuery("Generos.findAll");
+        ArrayList<Generos> listaProductos = (ArrayList<Generos>) c1.getResultList();
+          for (Generos listaProducto : listaProductos) {
+              
+              System.out.println(listaProducto);
+              
+          }
+
+    }
+      
+       public static void rellenarCBX (ComboBox<String> comboBox, ArrayList<Nacionalidad> lista){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        
+        Query c1 = em.createNamedQuery("Nacionalidad.findAll");
+        lista = (ArrayList<Nacionalidad>) c1.getResultList();
+        
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+          
+        for (Nacionalidad elemento : lista) {
+              
+            System.out.println(elemento.getNacionalidad());
+            items.add(elemento.getNacionalidad());
+             
+             
+        }
+        
+        
+        comboBox.setItems(items);
+    }
+      
+      public static void rellenarCBX2 (ComboBox<String> comboBox, ArrayList<Generos> lista){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        
+        Query c1 = em.createNamedQuery("Generos.findAll");
+        lista = (ArrayList<Generos>) c1.getResultList();
+        
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+          
+        for (Generos elemento : lista) {
+              
+            System.out.println(elemento.getNombreGenero());
+            items.add(elemento.getNombreGenero());
+             
+             
+        }
+        
+        
+        comboBox.setItems(items);
+    }
+
 }
