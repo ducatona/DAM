@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -185,28 +187,26 @@ public class Validaciones {
 
     }
       
-       public static void rellenarCBX (ComboBox<String> comboBox, ArrayList<Nacionalidad> lista){
+      public static void rellenarCBX(ComboBox<String> comboBox, String consulta) {
+        ArrayList<String> lista = new ArrayList();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
-        
-        Query c1 = em.createNamedQuery("Nacionalidad.findAll");
-        lista = (ArrayList<Nacionalidad>) c1.getResultList();
-        
+
+        Query c1 = em.createNamedQuery(consulta);
+        lista = (ArrayList<String>) c1.getResultList();
 
         ObservableList<String> items = FXCollections.observableArrayList();
-          
-        for (Nacionalidad elemento : lista) {
-              
-            System.out.println(elemento.getNacionalidad());
-            items.add(elemento.getNacionalidad());
-             
-             
+
+        for (String elemento : lista) {
+
+            items.add(elemento);
+
         }
-        
-        
+
         comboBox.setItems(items);
     }
       
+     
       public static void rellenarCBX2 (ComboBox<String> comboBox, ArrayList<Generos> lista){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
@@ -227,6 +227,22 @@ public class Validaciones {
         
         
         comboBox.setItems(items);
+    }
+      
+      public static <T extends TextInputControl> boolean comprobarCampoVacio(T Control) {
+        if (Control.getText().isBlank()) {
+            alertasWarning("Error", null,"Debe rellenar el campo " + Control.getId());
+        }else{
+            return true;
+        }
+        return false;
+    }
+    public static void alertasWarning(String titulo, String header, String contenido) {
+        Alert alerta = new Alert(AlertType.WARNING);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(header); // Sin encabezado
+        alerta.setContentText(contenido);
+        alerta.showAndWait();
     }
 
 }

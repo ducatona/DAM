@@ -15,8 +15,10 @@ import java.util.Collection;
 @javax.persistence.Table(name = "nacionalidad")
 @javax.persistence.NamedQueries({
     @javax.persistence.NamedQuery(name = "Nacionalidad.findAll", query = "SELECT n FROM Nacionalidad n"),
+    @javax.persistence.NamedQuery(name = "Nacionalidad.findAllNacionalidad", query = "SELECT nacionalidad FROM Nacionalidad n"),
     @javax.persistence.NamedQuery(name = "Nacionalidad.findByIdNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.idNacionalidad = :idNacionalidad"),
     @javax.persistence.NamedQuery(name = "Nacionalidad.findByNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.nacionalidad = :nacionalidad")})
+
 public class Nacionalidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -85,5 +87,5 @@ public class Nacionalidad implements Serializable {
     public String toString() {
         return "metodos.Nacionalidad[ idNacionalidad=" + idNacionalidad + " ]";
     }
-    
+
 }

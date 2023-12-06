@@ -37,7 +37,7 @@ public class PrimaryController {
 
     @FXML
     private void ClickRegistrarse(ActionEvent event) {
-        Login.login();
+        
         try {
             App.setRoot("FormaRegistrarse");
             

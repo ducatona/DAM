@@ -22,6 +22,7 @@ import java.util.Date;
     @javax.persistence.NamedQuery(name = "Usuarios.findByFechaNac", query = "SELECT u FROM Usuarios u WHERE u.fechaNac = :fechaNac"),
     @javax.persistence.NamedQuery(name = "Usuarios.findByAlias", query = "SELECT u FROM Usuarios u WHERE u.alias = :alias"),
     @javax.persistence.NamedQuery(name = "Usuarios.findByPassword", query = "SELECT u FROM Usuarios u WHERE u.password = :password"),
+    @javax.persistence.NamedQuery(name = "Usuarios.findByPassUs", query = "SELECT password FROM Usuarios u WHERE u.nombre = :nombre"),
     @javax.persistence.NamedQuery(name = "Usuarios.findByEmail", query = "SELECT u FROM Usuarios u WHERE u.email = :email")})
 public class Usuarios implements Serializable {
 

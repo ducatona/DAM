@@ -61,7 +61,8 @@ public class FormaRegistrarseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ArrayList<Nacionalidad> lista = null;
-        Validaciones.rellenarCBX(comboBox, lista);
+        Validaciones.rellenarCBX(comboBox,"Nacionalidad.findAllNacionalidad");
+        
     }
     
     
