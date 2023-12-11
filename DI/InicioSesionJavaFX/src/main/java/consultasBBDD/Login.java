@@ -21,7 +21,7 @@ import modelo.Usuarios;
  * @author apena
  */
 public class Login {
-
+/*
     public static boolean ConsultarUsuarios(String nombreUsuario) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
@@ -32,7 +32,7 @@ public class Login {
             String jpql = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre";
             TypedQuery<Usuarios> query = em.createNamedQuery("Usuarios.findByNombre", Usuarios.class);
             query.setParameter("nombre", nombreUsuario);
- 
+            
             // Intenta obtener un resultado, si no hay resultados, significa que el usuario no existe
             query.getSingleResult();
             em.close();
@@ -48,7 +48,7 @@ public class Login {
         }
     }
 
-
+*/
 
 
 public static boolean ConsultarContraseña(String usuario, String password) {

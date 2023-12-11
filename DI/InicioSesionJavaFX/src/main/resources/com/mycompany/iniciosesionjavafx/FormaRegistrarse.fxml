@@ -29,7 +29,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="Usuario">
+            <Label text="Alias">
                <font>
                   <Font size="15.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Insets top="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="txtUsuarioR" prefHeight="30.0" promptText="Ej. Admin12">
+            <TextField fx:id="txtAliasR" prefHeight="30.0" promptText="Ej. Admin12">
                <font>
                   <Font size="14.0" />
                </font>
@@ -116,19 +116,6 @@
                      </VBox.margin>
                   </Label>
                   <TextField fx:id="txtApellidos" promptText="Ej.  Franco Ros">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <Label text="Alias">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextField fx:id="txtUsuarioR1" prefHeight="30.0" promptText="Ej. Jonathan">
                      <font>
                         <Font size="14.0" />
                      </font>

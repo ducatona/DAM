@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +30,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import metodos.Validaciones;
 import modelo.Nacionalidad;
+import static org.hibernate.criterion.Projections.alias;
 
 /**
  * FXML Controller class
@@ -40,8 +43,7 @@ public class FormaRegistrarseController implements Initializable {
     public VBox panelRegistrarse;
     @FXML
     public TextField txtCorreoElectronico;
-    @FXML
-    public TextField txtUsuarioR;
+    
     @FXML
     public TextField txtContraseña;
     @FXML
@@ -54,6 +56,12 @@ public class FormaRegistrarseController implements Initializable {
     public Button btnLimpiarRegistro;
     @FXML
     public ComboBox<String> comboBox;
+    @FXML
+    public TextField txtAliasR;
+    @FXML
+    public TextField txtNombre;
+    @FXML
+    public TextField txtApellidos;
 
     /**
      * Initializes the controller class.
@@ -79,23 +87,38 @@ public class FormaRegistrarseController implements Initializable {
     @FXML
     private void clickLimpiarR(ActionEvent event) {
 
-        txtUsuarioR.setText("");
+        txtAliasR.setText("");
         txtCorreoElectronico.setText("");
         txtContraseña.setText("");
         txtConfirmacionContraseña.setText("");
+        txtNombre.setText("");
+        txtApellidos.setText("");
 
     }
 
     @FXML
     private void clickRegistrar(ActionEvent event) {
 
-        Validaciones v = new Validaciones();
-        v.validarEmail(txtCorreoElectronico);
+       Validaciones v = new Validaciones();
+       // v.validarEmail(txtCorreoElectronico);
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
+       
 
-        v.InsertarRegistro(em);
+        //v.InsertarRegistro(em);
+        
+        if (v.comprobarFormularioBlanco(txtAliasR,txtContraseña,txtConfirmacionContraseña,txtCorreoElectronico,txtNombre,txtApellidos)) {
+       if (v.comprobarformulario(txtAliasR, txtCorreoElectronico, txtContraseña, txtConfirmacionContraseña)) {
+           try {
+               App.setRoot("FormaInicioSesion");
+           } catch (IOException ex) {
+               Logger.getLogger(FormaRegistrarseController.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            }
+           
+            
+            
+        }
+        
 
     }
 

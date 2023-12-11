@@ -8,6 +8,8 @@ import consultasBBDD.Login;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,23 +88,26 @@ public class FormaInicioSesionController implements Initializable {
 
         String nombreUsuario = txtInicioSesion.getText();
         String contraseña = txtContraseñaIsM.getText();
+        try {
+            if (Validaciones.comprobarCampoVacio(txtInicioSesion) && Validaciones.comprobarCampoVacio(txtContraseñaIs)) {
 
-        if (Validaciones.comprobarCampoVacio(txtInicioSesion) && Validaciones.comprobarCampoVacio(txtContraseñaIs)) {
-            if (Login.ConsultarUsuarios(nombreUsuario)) {
                 if (Login.ConsultarContraseña(nombreUsuario, contraseña)) {
                     System.out.println("Inicio de sesión exitoso para el usuario: " + nombreUsuario);
                     // Realiza acciones adicionales después de un inicio de sesión exitoso
+
+                    App.setRoot("PantallaInicial");
+
                 } else {
-                    System.out.println("Contraseña incorrecta para el usuario: " + nombreUsuario);
+                    System.out.println("Contraseña y usuario incorrectos ");
                     // Puedes manejar el caso en el que la contraseña no coincide
                 }
+
             } else {
-                System.out.println("Usuario no encontrado: " + nombreUsuario);
-                // Puedes manejar el caso en el que el usuario no se encuentra en la base de datos
+                System.out.println("Por favor, complete todos los campos");
+                // Puedes manejar el caso en el que algunos campos están vacíos
             }
-        } else {
-            System.out.println("Por favor, complete todos los campos");
-            // Puedes manejar el caso en el que algunos campos están vacíos
+        } catch (IOException ex) {
+            Logger.getLogger(FormaInicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

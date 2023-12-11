@@ -19,8 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.Nacionalidad;
-
 
 /**
  *
@@ -76,26 +76,8 @@ public class Validaciones {
         return valido;
     }
 
-    /**
-     * Método para validar correos electrónicos, admite mayúsculas, minúsculas,
-     * números, puntos, guiones, guiones bajos y acentos.
-     *
-     * @param campo Campo de texto a validar.
-     * @return Devuelve FALSE si el correo electrónico dado como argumento NO es
-     * válido, TRUE en los demás casos.
-     */
-    public boolean validarEmail(TextField campo) {
-        if (comprobarCampoVacio(campo)) {
-            return false;
-        }
-        // Expresión regular para validar correos electrónicos.
-        boolean valido = campo.getText().matches("[a-zA-Z0-9.\\-_]+@[a-z]+\\.[a-z]{2,4}");
-        if (!valido) {
-            mostrarError("Correo electrónico no válido");
-        }
-        return valido;
-    }
-
+  
+  
     /**
      * Método para validar JComboBox, asegurándose de que se haya seleccionado
      * un elemento.
@@ -163,31 +145,30 @@ public class Validaciones {
         text.textProperty().bindBidirectional(pass.textProperty());
 
     }
-    
-      public  void InsertarRegistro(EntityManager em) {
+
+    public void InsertarRegistro(EntityManager em) {
         Query insercion = em.createNativeQuery("INSERT INTO Categoria (nombre) VALUES (:nombre);");
         em.getTransaction().begin();
         insercion.setParameter("nombre", "Videojuegos");
         insercion.executeUpdate();
         em.getTransaction().commit();
-        
+
         System.out.println("Categoria nueva insertada correctamente");
 
     }
-      
-      
-      public void Select1(EntityManager em) {
+
+    public void Select1(EntityManager em) {
         Query c1 = em.createNamedQuery("Generos.findAll");
         ArrayList<Generos> listaProductos = (ArrayList<Generos>) c1.getResultList();
-          for (Generos listaProducto : listaProductos) {
-              
-              System.out.println(listaProducto);
-              
-          }
+        for (Generos listaProducto : listaProductos) {
+
+            System.out.println(listaProducto);
+
+        }
 
     }
-      
-      public static void rellenarCBX(ComboBox<String> comboBox, String consulta) {
+
+    public static void rellenarCBX(ComboBox<String> comboBox, String consulta) {
         ArrayList<String> lista = new ArrayList();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
@@ -205,38 +186,35 @@ public class Validaciones {
 
         comboBox.setItems(items);
     }
-      
-     
-      public static void rellenarCBX2 (ComboBox<String> comboBox, ArrayList<Generos> lista){
+
+    public static void rellenarCBX2(ComboBox<String> comboBox, ArrayList<Generos> lista) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
-        
+
         Query c1 = em.createNamedQuery("Generos.findAll");
         lista = (ArrayList<Generos>) c1.getResultList();
-        
 
         ObservableList<String> items = FXCollections.observableArrayList();
-          
+
         for (Generos elemento : lista) {
-              
+
             System.out.println(elemento.getNombreGenero());
             items.add(elemento.getNombreGenero());
-             
-             
+
         }
-        
-        
+
         comboBox.setItems(items);
     }
-      
-      public static <T extends TextInputControl> boolean comprobarCampoVacio(T Control) {
+
+    public static <T extends TextInputControl> boolean comprobarCampoVacio(T Control) {
         if (Control.getText().isBlank()) {
-            alertasWarning("Error", null,"Debe rellenar el campo " + Control.getId());
-        }else{
+            alertasWarning("Error", null, "Debe rellenar el campo " + Control.getId());
+        } else {
             return true;
         }
         return false;
     }
+
     public static void alertasWarning(String titulo, String header, String contenido) {
         Alert alerta = new Alert(AlertType.WARNING);
         alerta.setTitle(titulo);
@@ -245,4 +223,67 @@ public class Validaciones {
         alerta.showAndWait();
     }
 
+    public  <T extends TextInputControl> boolean comprobarFormularioBlanco(T... parametros) {
+        for (T parametro : parametros) {
+            if (parametro.getText().isBlank()) {
+                alertasWarning("Error", null, "Debe rellenar el campo " + parametro.getId());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
+    
+    
+    
+    public boolean comprobarformulario(TextField alias, TextField email, TextField password, TextField confirmacion) {
+        return comprobarUsuario(alias) && validarEmail(email) && comprobarContraseña(password, confirmacion);
+    }
+    
+    
+    public  boolean comprobarContraseña (TextField password, TextField confirmacion){
+        if (!password.getText().equals(confirmacion.getText())) {
+            alertasWarning("Error", null, "Las contraseñas no coinciden");
+            return false;
+        }
+        return true;
+    }
+    
+    public  boolean comprobarUsuario (TextField alias){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        
+        TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Usuarios u WHERE u.alias = :alias", Long.class);
+        query.setParameter("alias", alias.getText());
+        Long resultado = query.getSingleResult();
+
+        em.close();
+        emf.close();
+
+        if (resultado > 0) {
+            alertasWarning("Error de creacion de cuenta", null, "El usuario ya existe");
+            return false;
+        }
+        return true;
+    }
+    
+    public  boolean validarEmail(TextField email) {
+        if (!email.getText().matches("[a-zA-Z0-9.\\-_]+@[a-z]+\\.[a-z]{2,4}")) {
+            alertasWarning("Error de  formato", null, "Formato de email no valido");
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
