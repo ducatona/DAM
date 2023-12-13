@@ -86,4 +86,8 @@ public class FormaInicioSesionController implements Initializable {
         }
 
     }
+
+    @FXML
+    private void CheckContraseña(ActionEvent event) {
+    }
 }
