@@ -6,28 +6,39 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "perfil")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p"),
-    @javax.persistence.NamedQuery(name = "Perfil.findByIdPerfil", query = "SELECT p FROM Perfil p WHERE p.idPerfil = :idPerfil"),
-    @javax.persistence.NamedQuery(name = "Perfil.findByTipoUsuario", query = "SELECT p FROM Perfil p WHERE p.tipoUsuario = :tipoUsuario")})
+@Entity
+@Table(name = "perfil")
+@NamedQueries({
+    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p"),
+    @NamedQuery(name = "Perfil.findAllPerfil", query = "SELECT p.tipoUsuario FROM Perfil p"),
+    @NamedQuery(name = "Perfil.findByIdPerfil", query = "SELECT p FROM Perfil p WHERE p.idPerfil = :idPerfil"),
+    @NamedQuery(name = "Perfil.findByTipoUsuario", query = "SELECT p FROM Perfil p WHERE p.tipoUsuario = :tipoUsuario")})
 public class Perfil implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_perfil")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_perfil")
     private Integer idPerfil;
-    @javax.persistence.Column(name = "tipo_usuario")
+    @Column(name = "tipo_usuario")
     private String tipoUsuario;
-    @javax.persistence.OneToMany(mappedBy = "idPerfil")
+    @OneToMany(mappedBy = "idPerfil")
     private Collection<Usuarios> usuariosCollection;
 
     public Perfil() {
@@ -83,7 +94,7 @@ public class Perfil implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Perfil[ idPerfil=" + idPerfil + " ]";
+        return "modelos.Perfil[ idPerfil=" + idPerfil + " ]";
     }
     
 }

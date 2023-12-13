@@ -22,8 +22,6 @@ CREATE TABLE IF NOT EXISTS generos (
     descripcion_genero VARCHAR(255)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(30) NOT NULL,
@@ -57,23 +55,13 @@ CREATE TABLE IF NOT EXISTS juegos (
     CONSTRAINT fk_juegos_pegui FOREIGN KEY (id_pegui) REFERENCES pegui(id_pegui)
 );
 
-
 CREATE TABLE IF NOT EXISTS biblioteca (
-	id_juego INT not null,
+    id_juego INT NOT NULL,
     id_usuario INT NOT NULL,
     fecha DATE,
     url VARCHAR(150),
-    primary key(id_juego,id_usuario),
-    CONSTRAINT fk_biblioteca_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT,
-	CONSTRAINT fk_biblioteca_juego FOREIGN KEY (id_juego) REFERENCES juegos (id_juego) ON UPDATE CASCADE ON DELETE RESTRICT
-      
-);
-CREATE TABLE IF NOT EXISTS descargas (
-    id_descarga INT AUTO_INCREMENT PRIMARY KEY,
-    id_biblioteca INT NOT NULL,
-    id_juegos INT NOT NULL,
-    fecha DATE,
-    CONSTRAINT fk_descargas_biblioteca FOREIGN KEY (id_biblioteca) REFERENCES biblioteca(id_biblioteca) ON UPDATE RESTRICT ON DELETE RESTRICT,
-    CONSTRAINT fk_descargas_juegos FOREIGN KEY (id_juegos) REFERENCES juegos(id_juego) ON UPDATE RESTRICT ON DELETE RESTRICT
+    PRIMARY KEY (id_juego, id_usuario),
+    CONSTRAINT fk_biblioteca_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_biblioteca_juego FOREIGN KEY (id_juego) REFERENCES juegos(id_juego) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

@@ -8,61 +8,74 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "juegos")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Juegos.findAll", query = "SELECT j FROM Juegos j"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByIdJuego", query = "SELECT j FROM Juegos j WHERE j.idJuego = :idJuego"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByNombreJuego", query = "SELECT j FROM Juegos j WHERE j.nombreJuego = :nombreJuego"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByDescripcion", query = "SELECT j FROM Juegos j WHERE j.descripcion = :descripcion"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByUrl", query = "SELECT j FROM Juegos j WHERE j.url = :url"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByUrlCaratula", query = "SELECT j FROM Juegos j WHERE j.urlCaratula = :urlCaratula"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByNivelDificultad", query = "SELECT j FROM Juegos j WHERE j.nivelDificultad = :nivelDificultad"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByFechaCreacion", query = "SELECT j FROM Juegos j WHERE j.fechaCreacion = :fechaCreacion"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByPrecio", query = "SELECT j FROM Juegos j WHERE j.precio = :precio"),
-    @javax.persistence.NamedQuery(name = "Juegos.findByDescargasAcumuladas", query = "SELECT j FROM Juegos j WHERE j.descargasAcumuladas = :descargasAcumuladas")})
+@Entity
+@Table(name = "juegos")
+@NamedQueries({
+    @NamedQuery(name = "Juegos.findAll", query = "SELECT j FROM Juegos j"),
+    @NamedQuery(name = "Juegos.findByIdJuego", query = "SELECT j FROM Juegos j WHERE j.idJuego = :idJuego"),
+    @NamedQuery(name = "Juegos.findByNombreJuego", query = "SELECT j FROM Juegos j WHERE j.nombreJuego = :nombreJuego"),
+    @NamedQuery(name = "Juegos.findByDescripcion", query = "SELECT j FROM Juegos j WHERE j.descripcion = :descripcion"),
+    @NamedQuery(name = "Juegos.findByUrl", query = "SELECT j FROM Juegos j WHERE j.url = :url"),
+    @NamedQuery(name = "Juegos.findByUrlCaratula", query = "SELECT j FROM Juegos j WHERE j.urlCaratula = :urlCaratula"),
+    @NamedQuery(name = "Juegos.findByNivelDificultad", query = "SELECT j FROM Juegos j WHERE j.nivelDificultad = :nivelDificultad"),
+    @NamedQuery(name = "Juegos.findByFechaCreacion", query = "SELECT j FROM Juegos j WHERE j.fechaCreacion = :fechaCreacion"),
+    @NamedQuery(name = "Juegos.findByPrecio", query = "SELECT j FROM Juegos j WHERE j.precio = :precio"),
+    @NamedQuery(name = "Juegos.findByDescargasAcumuladas", query = "SELECT j FROM Juegos j WHERE j.descargasAcumuladas = :descargasAcumuladas")})
 public class Juegos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_juego")
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id_juego")
     private Integer idJuego;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "nombre_juego")
+    @Basic(optional = false)
+    @Column(name = "nombre_juego")
     private String nombreJuego;
-    @javax.persistence.Column(name = "descripcion")
+    @Column(name = "descripcion")
     private String descripcion;
-    @javax.persistence.Column(name = "url")
+    @Column(name = "url")
     private String url;
-    @javax.persistence.Column(name = "url_caratula")
+    @Column(name = "url_caratula")
     private String urlCaratula;
-    @javax.persistence.Column(name = "nivel_dificultad")
+    @Column(name = "nivel_dificultad")
     private String nivelDificultad;
-    @javax.persistence.Column(name = "fecha_creacion")
-    @javax.persistence.Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "fecha_creacion")
+    @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @javax.persistence.Column(name = "precio")
+    @Column(name = "precio")
     private BigDecimal precio;
-    @javax.persistence.Column(name = "descargas_acumuladas")
+    @Column(name = "descargas_acumuladas")
     private Integer descargasAcumuladas;
-    @javax.persistence.JoinColumn(name = "id_genero", referencedColumnName = "id_genero")
-    @javax.persistence.ManyToOne(optional = false)
-    private Generos idGenero;
-    @javax.persistence.JoinColumn(name = "id_desarrollador", referencedColumnName = "id_usuario")
-    @javax.persistence.ManyToOne
+    @JoinColumn(name = "id_desarrollador", referencedColumnName = "id_usuario")
+    @ManyToOne
     private Usuarios idDesarrollador;
-    @javax.persistence.JoinColumn(name = "id_pegui", referencedColumnName = "id_pegui")
-    @javax.persistence.ManyToOne(optional = false)
+    @JoinColumn(name = "id_genero", referencedColumnName = "id_genero")
+    @ManyToOne(optional = false)
+    private Generos idGenero;
+    @JoinColumn(name = "id_pegui", referencedColumnName = "id_pegui")
+    @ManyToOne(optional = false)
     private Pegui idPegui;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idJuegos")
-    private Collection<Descargas> descargasCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "juegos")
+    private Collection<Biblioteca> bibliotecaCollection;
 
     public Juegos() {
     }
@@ -148,20 +161,20 @@ public class Juegos implements Serializable {
         this.descargasAcumuladas = descargasAcumuladas;
     }
 
-    public Generos getIdGenero() {
-        return idGenero;
-    }
-
-    public void setIdGenero(Generos idGenero) {
-        this.idGenero = idGenero;
-    }
-
     public Usuarios getIdDesarrollador() {
         return idDesarrollador;
     }
 
     public void setIdDesarrollador(Usuarios idDesarrollador) {
         this.idDesarrollador = idDesarrollador;
+    }
+
+    public Generos getIdGenero() {
+        return idGenero;
+    }
+
+    public void setIdGenero(Generos idGenero) {
+        this.idGenero = idGenero;
     }
 
     public Pegui getIdPegui() {
@@ -172,12 +185,12 @@ public class Juegos implements Serializable {
         this.idPegui = idPegui;
     }
 
-    public Collection<Descargas> getDescargasCollection() {
-        return descargasCollection;
+    public Collection<Biblioteca> getBibliotecaCollection() {
+        return bibliotecaCollection;
     }
 
-    public void setDescargasCollection(Collection<Descargas> descargasCollection) {
-        this.descargasCollection = descargasCollection;
+    public void setBibliotecaCollection(Collection<Biblioteca> bibliotecaCollection) {
+        this.bibliotecaCollection = bibliotecaCollection;
     }
 
     @Override
@@ -202,7 +215,7 @@ public class Juegos implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Juegos[ idJuego=" + idJuego + " ]";
+        return "modelos.Juegos[ idJuego=" + idJuego + " ]";
     }
     
 }

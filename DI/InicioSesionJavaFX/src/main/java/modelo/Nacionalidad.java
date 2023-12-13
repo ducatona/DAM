@@ -6,30 +6,40 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "nacionalidad")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Nacionalidad.findAll", query = "SELECT n FROM Nacionalidad n"),
-    @javax.persistence.NamedQuery(name = "Nacionalidad.findAllNacionalidad", query = "SELECT nacionalidad FROM Nacionalidad n"),
-    @javax.persistence.NamedQuery(name = "Nacionalidad.findByIdNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.idNacionalidad = :idNacionalidad"),
-    @javax.persistence.NamedQuery(name = "Nacionalidad.findByNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.nacionalidad = :nacionalidad")})
-
+@Entity
+@Table(name = "nacionalidad")
+@NamedQueries({
+    @NamedQuery(name = "Nacionalidad.findAll", query = "SELECT n FROM Nacionalidad n"),
+    @NamedQuery(name = "Nacionalidad.findAllNacionalidad", query = "SELECT nacionalidad FROM Nacionalidad n"),
+    @NamedQuery(name = "Nacionalidad.findByIdNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.idNacionalidad = :idNacionalidad"),
+    @NamedQuery(name = "Nacionalidad.findByNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.nacionalidad = :nacionalidad")})
 public class Nacionalidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_nacionalidad")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_nacionalidad")
     private Integer idNacionalidad;
-    @javax.persistence.Column(name = "nacionalidad")
+    @Column(name = "nacionalidad")
     private String nacionalidad;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idNacionalidad")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNacionalidad")
     private Collection<Usuarios> usuariosCollection;
 
     public Nacionalidad() {
@@ -85,7 +95,7 @@ public class Nacionalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Nacionalidad[ idNacionalidad=" + idNacionalidad + " ]";
+        return "modelos.Nacionalidad[ idNacionalidad=" + idNacionalidad + " ]";
     }
 
 }

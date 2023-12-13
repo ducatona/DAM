@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.iniciosesionjavafx;
 
 import java.io.IOException;
@@ -23,6 +19,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javax.persistence.EntityManager;
@@ -31,19 +28,17 @@ import javax.persistence.Persistence;
 import metodos.Validaciones;
 import modelo.Nacionalidad;
 import static org.hibernate.criterion.Projections.alias;
+import consultasBBDD.RegistrarUsuarios;
+import java.util.List;
+import modelo.Perfil;
 
-/**
- * FXML Controller class
- *
- * @author apena
- */
 public class FormaRegistrarseController implements Initializable {
 
     @FXML
     public VBox panelRegistrarse;
     @FXML
     public TextField txtCorreoElectronico;
-    
+
     @FXML
     public TextField txtContraseña;
     @FXML
@@ -62,18 +57,19 @@ public class FormaRegistrarseController implements Initializable {
     public TextField txtNombre;
     @FXML
     public TextField txtApellidos;
+    @FXML
+    private DatePicker fecha;
+    @FXML
+    public ComboBox<?> ComboBox2;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<Nacionalidad> lista = null;
-        Validaciones.rellenarCBX(comboBox,"Nacionalidad.findAllNacionalidad");
-        
+
+        Validaciones.rellenarCBX(comboBox, "Nacionalidad.findAllNacionalidad");
+        Validaciones.rellenarCBX((ComboBox<String>) ComboBox2, "Perfil.findAllPerfil");
+
     }
-    
-    
+
     @FXML
     private void clickVolver(ActionEvent event) {
 
@@ -98,28 +94,24 @@ public class FormaRegistrarseController implements Initializable {
 
     @FXML
     private void clickRegistrar(ActionEvent event) {
+        Validaciones v = new Validaciones();
+        RegistrarUsuarios ru = new RegistrarUsuarios();
+        int seleccion = v.obtenerPosicionSeleccion(comboBox);
+        int seleccion1 = v.obtenerPosicionSeleccion((ComboBox<String>) ComboBox2);
 
-       Validaciones v = new Validaciones();
-       // v.validarEmail(txtCorreoElectronico);
+        if (v.comprobarFormularioBlanco(txtAliasR, txtContraseña, txtConfirmacionContraseña, txtCorreoElectronico, txtNombre, txtApellidos)) {
+            if (v.comprobarformulario(txtAliasR, txtCorreoElectronico, txtContraseña, txtConfirmacionContraseña)) {
+                try {
 
-       
+                    ru.InsertarUsuario(txtNombre.getText(), txtApellidos.getText(), fecha.getValue(), txtAliasR.getText(), txtContraseña.getText(), txtCorreoElectronico.getText(),
+                            seleccion, seleccion1);
 
-        //v.InsertarRegistro(em);
-        
-        if (v.comprobarFormularioBlanco(txtAliasR,txtContraseña,txtConfirmacionContraseña,txtCorreoElectronico,txtNombre,txtApellidos)) {
-       if (v.comprobarformulario(txtAliasR, txtCorreoElectronico, txtContraseña, txtConfirmacionContraseña)) {
-           try {
-               App.setRoot("FormaInicioSesion");
-           } catch (IOException ex) {
-               Logger.getLogger(FormaRegistrarseController.class.getName()).log(Level.SEVERE, null, ex);
-           }
+                    App.setRoot("FormaInicioSesion");
+                } catch (IOException ex) {
+                    Logger.getLogger(FormaRegistrarseController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-           
-            
-            
         }
-        
-
     }
 
 }

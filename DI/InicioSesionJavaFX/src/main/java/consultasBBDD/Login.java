@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package consultasBBDD;
 
 import java.util.ArrayList;
@@ -15,64 +11,32 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import modelo.Usuarios;
+import org.hibernate.sql.Alias;
 
-/**
- *
- * @author apena
- */
 public class Login {
-/*
-    public static boolean ConsultarUsuarios(String nombreUsuario) {
 
+    public static boolean ConsultarContraseña(String alias, String password) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
 
         try {
+            String jpql = "SELECT u FROM Usuarios u WHERE u.alias = :alias AND u.password = :password";
+            TypedQuery<Usuarios> query = em.createQuery(jpql, Usuarios.class);
+            query.setParameter("alias", alias);
+            query.setParameter("password", password);
 
-            String jpql = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre";
-            TypedQuery<Usuarios> query = em.createNamedQuery("Usuarios.findByNombre", Usuarios.class);
-            query.setParameter("nombre", nombreUsuario);
-            
-            // Intenta obtener un resultado, si no hay resultados, significa que el usuario no existe
+            // Intenta obtener un resultado, si no hay resultados, significa que el usuario o la contraseña son incorrectos
             query.getSingleResult();
             em.close();
             emf.close();
-            // Si no se lanza NoResultException, el usuario existe
+            // Si no se lanza NoResultException, el usuario y la contraseña son correctos
             return true;
         } catch (NoResultException e) {
             em.close();
             emf.close();
 
-// No se encontró ningún usuario con ese nombre
+            // No se encontró ningún usuario con ese nombre y contraseña
             return false;
         }
     }
-
-*/
-
-
-public static boolean ConsultarContraseña(String usuario, String password) {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
-    EntityManager em = emf.createEntityManager();
-
-    try {
-        String jpql = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre AND u.password = :password";
-        TypedQuery<Usuarios> query = em.createQuery(jpql, Usuarios.class);
-        query.setParameter("nombre", usuario);
-        query.setParameter("password", password);
-
-        // Intenta obtener un resultado, si no hay resultados, significa que el usuario o la contraseña son incorrectos
-        query.getSingleResult();
-        em.close();
-        emf.close();
-        // Si no se lanza NoResultException, el usuario y la contraseña son correctos
-        return true;
-    } catch (NoResultException e) {
-        em.close();
-        emf.close();
-
-        // No se encontró ningún usuario con ese nombre y contraseña
-        return false;
-    }
-}
 }

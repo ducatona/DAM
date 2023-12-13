@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package metodos;
 
+import java.time.LocalDate;
 import modelo.Generos;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -21,29 +20,14 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Nacionalidad;
+import modelo.Perfil;
 
-/**
- *
- * @author apena
- */
 public class Validaciones {
 
-    // Constructor por defecto
-    /**
-     *
-     */
     public Validaciones() {
-        // Puedes agregar lógica de inicialización aquí si es necesario
+
     }
 
-    /**
-     * Método para validar nombres/apellidos, admite mayúsculas, minúsculas,
-     * acentos y espacios.
-     *
-     * @param campo Campo de texto a validar.
-     * @return Devuelve FALSE si el texto dado como argumento NO pasa la
-     * validación, TRUE en los demás casos.
-     */
     public boolean validarNom_Ape(TextField campo) {
         if (comprobarCampoVacio(campo)) {
             return false;
@@ -56,14 +40,6 @@ public class Validaciones {
         return valido;
     }
 
-    /**
-     * Método para validar nombres de usuario, admite mayúsculas, minúsculas,
-     * números, puntos, guiones, guiones bajos y acentos.
-     *
-     * @param campo Campo de texto a validar.
-     * @return Devuelve FALSE si el texto dado como argumento NO pasa la
-     * validación, TRUE en los demás casos.
-     */
     public boolean validarUser(TextField campo) {
         if (comprobarCampoVacio(campo)) {
             return false;
@@ -76,16 +52,6 @@ public class Validaciones {
         return valido;
     }
 
-  
-  
-    /**
-     * Método para validar JComboBox, asegurándose de que se haya seleccionado
-     * un elemento.
-     *
-     * @param cbox ComboBox a validar.
-     * @return Devuelve FALSE si no se ha seleccionado ningún elemento, TRUE en
-     * los demás casos.
-     */
     public boolean validarCbox(ComboBox<String> cbox) {
         if (cbox.getSelectionModel().isEmpty()) {
             mostrarError("No ha seleccionado ningún " + cbox.getId());
@@ -94,13 +60,6 @@ public class Validaciones {
         return true;
     }
 
-    // Métodos auxiliares:
-    /**
-     * Método para comprobar si un campo de texto está vacío.
-     *
-     * @param campo Campo de texto a comprobar.
-     * @return Devuelve TRUE si el campo está vacío, FALSE en los demás casos.
-     */
     private boolean comprobarCampoVacio(TextField campo) {
         if (campo.getText().isBlank()) {
             mostrarError("Campo vacío");
@@ -109,11 +68,6 @@ public class Validaciones {
         return false;
     }
 
-    /**
-     * Método para mostrar un mensaje de error usando un Alert de JavaFX.
-     *
-     * @param mensaje Mensaje de error a mostrar.
-     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Dato no válido");
@@ -122,15 +76,6 @@ public class Validaciones {
         alert.showAndWait();
     }
 
-    /**
-     * Metodo para que no se vea la contraseña que estabamos añadiendo, y con el
-     * que podemos ver al darle al checkbox, la contraseña introducida o por
-     * introducir.
-     *
-     * @param pass
-     * @param text
-     * @param check
-     */
     public void mContraseña(PasswordField pass, TextField text, CheckBox check) {
         //dejamos de hacer vissible el texto
         text.setVisible(false);
@@ -169,41 +114,30 @@ public class Validaciones {
     }
 
     public static void rellenarCBX(ComboBox<String> comboBox, String consulta) {
-        ArrayList<String> lista = new ArrayList();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
 
-        Query c1 = em.createNamedQuery(consulta);
-        lista = (ArrayList<String>) c1.getResultList();
+        try {
+            Query query = em.createNamedQuery(consulta);
+            List<String> resultList = query.getResultList();
 
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        for (String elemento : lista) {
-
-            items.add(elemento);
-
+            ObservableList<String> items = FXCollections.observableArrayList(resultList);
+            comboBox.setItems(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+            emf.close();
         }
-
-        comboBox.setItems(items);
     }
 
-    public static void rellenarCBX2(ComboBox<String> comboBox, ArrayList<Generos> lista) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
+    public int obtenerPosicionSeleccion(ComboBox<String> comboBox) {
+        // Obtiene la posición del ítem seleccionado en el ComboBox
+        int posicion = comboBox.getSelectionModel().getSelectedIndex() + 1;
+        System.out.println("el indice es " + posicion);
 
-        Query c1 = em.createNamedQuery("Generos.findAll");
-        lista = (ArrayList<Generos>) c1.getResultList();
-
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        for (Generos elemento : lista) {
-
-            System.out.println(elemento.getNombreGenero());
-            items.add(elemento.getNombreGenero());
-
-        }
-
-        comboBox.setItems(items);
+        // Retorna la posición
+        return posicion;
     }
 
     public static <T extends TextInputControl> boolean comprobarCampoVacio(T Control) {
@@ -223,7 +157,7 @@ public class Validaciones {
         alerta.showAndWait();
     }
 
-    public  <T extends TextInputControl> boolean comprobarFormularioBlanco(T... parametros) {
+    public <T extends TextInputControl> boolean comprobarFormularioBlanco(T... parametros) {
         for (T parametro : parametros) {
             if (parametro.getText().isBlank()) {
                 alertasWarning("Error", null, "Debe rellenar el campo " + parametro.getId());
@@ -233,27 +167,22 @@ public class Validaciones {
         return true;
     }
 
-    
-    
-    
-    
     public boolean comprobarformulario(TextField alias, TextField email, TextField password, TextField confirmacion) {
         return comprobarUsuario(alias) && validarEmail(email) && comprobarContraseña(password, confirmacion);
     }
-    
-    
-    public  boolean comprobarContraseña (TextField password, TextField confirmacion){
+
+    public boolean comprobarContraseña(TextField password, TextField confirmacion) {
         if (!password.getText().equals(confirmacion.getText())) {
             alertasWarning("Error", null, "Las contraseñas no coinciden");
             return false;
         }
         return true;
     }
-    
-    public  boolean comprobarUsuario (TextField alias){
+
+    public boolean comprobarUsuario(TextField alias) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
         EntityManager em = emf.createEntityManager();
-        
+
         TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Usuarios u WHERE u.alias = :alias", Long.class);
         query.setParameter("alias", alias.getText());
         Long resultado = query.getSingleResult();
@@ -267,23 +196,13 @@ public class Validaciones {
         }
         return true;
     }
-    
-    public  boolean validarEmail(TextField email) {
+
+    public boolean validarEmail(TextField email) {
         if (!email.getText().matches("[a-zA-Z0-9.\\-_]+@[a-z]+\\.[a-z]{2,4}")) {
             alertasWarning("Error de  formato", null, "Formato de email no valido");
             return false;
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

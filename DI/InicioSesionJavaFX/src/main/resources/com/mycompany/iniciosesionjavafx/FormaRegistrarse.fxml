@@ -91,9 +91,10 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <ComboBox fx:id="comboBox" maxWidth="1.7976931348623157E308" prefHeight="30.0" visibleRowCount="0" />
+            <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="&lt;Seleccionar&gt;" />
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
                   <Label text="Nombre">
                      <font>
                         <Font size="15.0" />
@@ -130,7 +131,26 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <DatePicker />
+                        <DatePicker fx:id="fecha">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></DatePicker>
+                     </children>
+                  </VBox>
+                  <Label text="Perfil">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ComboBox fx:id="ComboBox2" prefWidth="150.0" promptText="&lt;Seleccionar&gt;" />
                      </children>
                   </VBox>
                </children>

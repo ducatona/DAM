@@ -1,5 +1,6 @@
 -- Añadir datos
-use indigames;
+USE indigames;
+
 -- Insertar datos en la tabla nacionalidad
 INSERT INTO nacionalidad (nacionalidad) VALUES 
 ('Española'),
@@ -33,19 +34,10 @@ INSERT INTO generos (nombre_genero, descripcion_genero) VALUES
 ('Deportes', 'Juegos de deportes');
 
 -- Insertar datos en la tabla usuarios
-INSERT INTO usuarios (nombre, apellidos, fecha_nac, alias, password, email, id_nacionalidad, id_perfil, id_biblioteca) VALUES 
-('Adrian', 'Pena', '2003-09-01', 'ducatona', '1234', 'adrianpcarnero@gmail.com', 1, 4, 1);
-
--- Insertar datos en la tabla biblioteca
-INSERT INTO biblioteca (id_usuario, fecha, url) VALUES 
-(1, '2023-01-01', 'http://example.com/library1');
+INSERT INTO usuarios (nombre, apellidos, fecha_nac, alias, password, email, id_nacionalidad, id_perfil) VALUES 
+('Adrian', 'Pena', '2003-09-01', 'ducatona', '1234', 'adrianpcarnero@gmail.com', 1, 3); -- Cambiado el id_perfil a 3 que corresponde a desarrollador
 
 -- Insertar datos en la tabla juegos
-INSERT INTO juegos (id_juego, nombre_juego, descripcion, url, url_caratula, id_genero, nivel_dificultad, fecha_creacion, id_desarrollador, id_pegui, precio, descargas_acumuladas) VALUES 
-(1, 'Super Aventura', 'Un emocionante juego de aventuras', 'http://example.com/game1', 'http://example.com/cover1', 1, 
-'Medio', '2023-01-01',1, 3, 29.99, 100);
-
--- Insertar datos en la tabla descargas
-INSERT INTO descargas (id_biblioteca, id_juegos, fecha) VALUES 
-(1, 1, '2023-02-01');
+INSERT INTO juegos (nombre_juego, descripcion, url, url_caratula, id_genero, nivel_dificultad, fecha_creacion, id_desarrollador, id_pegui, precio, descargas_acumuladas) VALUES 
+('Super Aventura', 'Un emocionante juego de aventuras', 'http://example.com/game1', 'http://example.com/cover1', 1, 'Medio', '2023-01-01', 1, 3, 29.99, 100);
 

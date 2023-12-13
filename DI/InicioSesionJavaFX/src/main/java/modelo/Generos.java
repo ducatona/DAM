@@ -6,31 +6,42 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "generos")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Generos.findAll", query = "SELECT g FROM Generos g"),
-    @javax.persistence.NamedQuery(name = "Generos.findByIdGenero", query = "SELECT g FROM Generos g WHERE g.idGenero = :idGenero"),
-    @javax.persistence.NamedQuery(name = "Generos.findByNombreGenero", query = "SELECT g FROM Generos g WHERE g.nombreGenero = :nombreGenero"),
-    @javax.persistence.NamedQuery(name = "Generos.findByDescripcionGenero", query = "SELECT g FROM Generos g WHERE g.descripcionGenero = :descripcionGenero")})
+@Entity
+@Table(name = "generos")
+@NamedQueries({
+    @NamedQuery(name = "Generos.findAll", query = "SELECT g FROM Generos g"),
+    @NamedQuery(name = "Generos.findByIdGenero", query = "SELECT g FROM Generos g WHERE g.idGenero = :idGenero"),
+    @NamedQuery(name = "Generos.findByNombreGenero", query = "SELECT g FROM Generos g WHERE g.nombreGenero = :nombreGenero"),
+    @NamedQuery(name = "Generos.findByDescripcionGenero", query = "SELECT g FROM Generos g WHERE g.descripcionGenero = :descripcionGenero")})
 public class Generos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_genero")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_genero")
     private Integer idGenero;
-    @javax.persistence.Column(name = "nombre_genero")
+    @Column(name = "nombre_genero")
     private String nombreGenero;
-    @javax.persistence.Column(name = "descripcion_genero")
+    @Column(name = "descripcion_genero")
     private String descripcionGenero;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idGenero")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGenero")
     private Collection<Juegos> juegosCollection;
 
     public Generos() {
@@ -94,7 +105,7 @@ public class Generos implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Generos[ idGenero=" + idGenero + " ]";
+        return "modelos.Generos[ idGenero=" + idGenero + " ]";
     }
     
 }

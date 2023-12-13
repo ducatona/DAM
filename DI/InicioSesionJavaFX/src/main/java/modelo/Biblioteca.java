@@ -5,54 +5,64 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "biblioteca")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Biblioteca.findAll", query = "SELECT b FROM Biblioteca b"),
-    @javax.persistence.NamedQuery(name = "Biblioteca.findByIdBiblioteca", query = "SELECT b FROM Biblioteca b WHERE b.idBiblioteca = :idBiblioteca"),
-    @javax.persistence.NamedQuery(name = "Biblioteca.findByFecha", query = "SELECT b FROM Biblioteca b WHERE b.fecha = :fecha"),
-    @javax.persistence.NamedQuery(name = "Biblioteca.findByUrl", query = "SELECT b FROM Biblioteca b WHERE b.url = :url")})
+@Entity
+@Table(name = "biblioteca")
+@NamedQueries({
+    @NamedQuery(name = "Biblioteca.findAll", query = "SELECT b FROM Biblioteca b"),
+    @NamedQuery(name = "Biblioteca.findByIdJuego", query = "SELECT b FROM Biblioteca b WHERE b.bibliotecaPK.idJuego = :idJuego"),
+    @NamedQuery(name = "Biblioteca.findByIdUsuario", query = "SELECT b FROM Biblioteca b WHERE b.bibliotecaPK.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Biblioteca.findByFecha", query = "SELECT b FROM Biblioteca b WHERE b.fecha = :fecha"),
+    @NamedQuery(name = "Biblioteca.findByUrl", query = "SELECT b FROM Biblioteca b WHERE b.url = :url")})
 public class Biblioteca implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_biblioteca")
-    private Integer idBiblioteca;
-    @javax.persistence.Column(name = "fecha")
-    @javax.persistence.Temporal(javax.persistence.TemporalType.DATE)
+    @EmbeddedId
+    protected BibliotecaPK bibliotecaPK;
+    @Column(name = "fecha")
+    @Temporal(TemporalType.DATE)
     private Date fecha;
-    @javax.persistence.Column(name = "url")
+    @Column(name = "url")
     private String url;
-    @javax.persistence.JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @javax.persistence.ManyToOne(optional = false)
-    private Usuarios idUsuario;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idBiblioteca")
-    private Collection<Usuarios> usuariosCollection;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idBiblioteca")
-    private Collection<Descargas> descargasCollection;
+    @JoinColumn(name = "id_juego", referencedColumnName = "id_juego", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Juegos juegos;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Usuarios usuarios;
 
     public Biblioteca() {
     }
 
-    public Biblioteca(Integer idBiblioteca) {
-        this.idBiblioteca = idBiblioteca;
+    public Biblioteca(BibliotecaPK bibliotecaPK) {
+        this.bibliotecaPK = bibliotecaPK;
     }
 
-    public Integer getIdBiblioteca() {
-        return idBiblioteca;
+    public Biblioteca(int idJuego, int idUsuario) {
+        this.bibliotecaPK = new BibliotecaPK(idJuego, idUsuario);
     }
 
-    public void setIdBiblioteca(Integer idBiblioteca) {
-        this.idBiblioteca = idBiblioteca;
+    public BibliotecaPK getBibliotecaPK() {
+        return bibliotecaPK;
+    }
+
+    public void setBibliotecaPK(BibliotecaPK bibliotecaPK) {
+        this.bibliotecaPK = bibliotecaPK;
     }
 
     public Date getFecha() {
@@ -71,34 +81,26 @@ public class Biblioteca implements Serializable {
         this.url = url;
     }
 
-    public Usuarios getIdUsuario() {
-        return idUsuario;
+    public Juegos getJuegos() {
+        return juegos;
     }
 
-    public void setIdUsuario(Usuarios idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setJuegos(Juegos juegos) {
+        this.juegos = juegos;
     }
 
-    public Collection<Usuarios> getUsuariosCollection() {
-        return usuariosCollection;
+    public Usuarios getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuariosCollection(Collection<Usuarios> usuariosCollection) {
-        this.usuariosCollection = usuariosCollection;
-    }
-
-    public Collection<Descargas> getDescargasCollection() {
-        return descargasCollection;
-    }
-
-    public void setDescargasCollection(Collection<Descargas> descargasCollection) {
-        this.descargasCollection = descargasCollection;
+    public void setUsuarios(Usuarios usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idBiblioteca != null ? idBiblioteca.hashCode() : 0);
+        hash += (bibliotecaPK != null ? bibliotecaPK.hashCode() : 0);
         return hash;
     }
 
@@ -109,7 +111,7 @@ public class Biblioteca implements Serializable {
             return false;
         }
         Biblioteca other = (Biblioteca) object;
-        if ((this.idBiblioteca == null && other.idBiblioteca != null) || (this.idBiblioteca != null && !this.idBiblioteca.equals(other.idBiblioteca))) {
+        if ((this.bibliotecaPK == null && other.bibliotecaPK != null) || (this.bibliotecaPK != null && !this.bibliotecaPK.equals(other.bibliotecaPK))) {
             return false;
         }
         return true;
@@ -117,7 +119,7 @@ public class Biblioteca implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Biblioteca[ idBiblioteca=" + idBiblioteca + " ]";
+        return "modelos.Biblioteca[ bibliotecaPK=" + bibliotecaPK + " ]";
     }
     
 }

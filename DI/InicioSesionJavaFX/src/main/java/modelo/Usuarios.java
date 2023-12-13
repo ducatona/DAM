@@ -7,63 +7,74 @@ package modelo;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "usuarios")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByIdUsuario", query = "SELECT u FROM Usuarios u WHERE u.idUsuario = :idUsuario"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByApellidos", query = "SELECT u FROM Usuarios u WHERE u.apellidos = :apellidos"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByFechaNac", query = "SELECT u FROM Usuarios u WHERE u.fechaNac = :fechaNac"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByAlias", query = "SELECT u FROM Usuarios u WHERE u.alias = :alias"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByPassword", query = "SELECT u FROM Usuarios u WHERE u.password = :password"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByPassUs", query = "SELECT password FROM Usuarios u WHERE u.nombre = :nombre"),
-    @javax.persistence.NamedQuery(name = "Usuarios.findByEmail", query = "SELECT u FROM Usuarios u WHERE u.email = :email")})
+@Entity
+@Table(name = "usuarios")
+@NamedQueries({
+    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
+    @NamedQuery(name = "Usuarios.findByIdUsuario", query = "SELECT u FROM Usuarios u WHERE u.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "Usuarios.findByApellidos", query = "SELECT u FROM Usuarios u WHERE u.apellidos = :apellidos"),
+    @NamedQuery(name = "Usuarios.findByFechaNac", query = "SELECT u FROM Usuarios u WHERE u.fechaNac = :fechaNac"),
+    @NamedQuery(name = "Usuarios.findByAlias", query = "SELECT u FROM Usuarios u WHERE u.alias = :alias"),
+    @NamedQuery(name = "Usuarios.findByPassword", query = "SELECT u FROM Usuarios u WHERE u.password = :password"),
+    @NamedQuery(name = "Usuarios.findByEmail", query = "SELECT u FROM Usuarios u WHERE u.email = :email")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_usuario")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_usuario")
     private Integer idUsuario;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "nombre")
+    @Basic(optional = false)
+    @Column(name = "nombre")
     private String nombre;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "apellidos")
+    @Basic(optional = false)
+    @Column(name = "apellidos")
     private String apellidos;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "fecha_nac")
-    @javax.persistence.Temporal(javax.persistence.TemporalType.DATE)
+    @Basic(optional = false)
+    @Column(name = "fecha_nac")
+    @Temporal(TemporalType.DATE)
     private Date fechaNac;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "alias")
+    @Basic(optional = false)
+    @Column(name = "alias")
     private String alias;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "password")
+    @Basic(optional = false)
+    @Column(name = "password")
     private String password;
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "email")
+    @Basic(optional = false)
+    @Column(name = "email")
     private String email;
-    @javax.persistence.OneToMany(mappedBy = "idDesarrollador")
+    @OneToMany(mappedBy = "idDesarrollador")
     private Collection<Juegos> juegosCollection;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private Collection<Biblioteca> bibliotecaCollection;
-    @javax.persistence.JoinColumn(name = "id_biblioteca", referencedColumnName = "id_biblioteca")
-    @javax.persistence.ManyToOne(optional = false)
-    private Biblioteca idBiblioteca;
-    @javax.persistence.JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil")
-    @javax.persistence.ManyToOne
-    private Perfil idPerfil;
-    @javax.persistence.JoinColumn(name = "id_nacionalidad", referencedColumnName = "id_nacionalidad")
-    @javax.persistence.ManyToOne(optional = false)
+    @JoinColumn(name = "id_nacionalidad", referencedColumnName = "id_nacionalidad")
+    @ManyToOne(optional = false)
     private Nacionalidad idNacionalidad;
+    @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil")
+    @ManyToOne
+    private Perfil idPerfil;
 
     public Usuarios() {
     }
@@ -154,12 +165,12 @@ public class Usuarios implements Serializable {
         this.bibliotecaCollection = bibliotecaCollection;
     }
 
-    public Biblioteca getIdBiblioteca() {
-        return idBiblioteca;
+    public Nacionalidad getIdNacionalidad() {
+        return idNacionalidad;
     }
 
-    public void setIdBiblioteca(Biblioteca idBiblioteca) {
-        this.idBiblioteca = idBiblioteca;
+    public void setIdNacionalidad(Nacionalidad idNacionalidad) {
+        this.idNacionalidad = idNacionalidad;
     }
 
     public Perfil getIdPerfil() {
@@ -168,14 +179,6 @@ public class Usuarios implements Serializable {
 
     public void setIdPerfil(Perfil idPerfil) {
         this.idPerfil = idPerfil;
-    }
-
-    public Nacionalidad getIdNacionalidad() {
-        return idNacionalidad;
-    }
-
-    public void setIdNacionalidad(Nacionalidad idNacionalidad) {
-        this.idNacionalidad = idNacionalidad;
     }
 
     @Override
@@ -200,7 +203,7 @@ public class Usuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Usuarios[ idUsuario=" + idUsuario + " ]";
+        return "modelos.Usuarios[ idUsuario=" + idUsuario + " ]";
     }
     
 }

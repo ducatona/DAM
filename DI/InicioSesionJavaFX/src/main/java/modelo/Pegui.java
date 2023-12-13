@@ -6,28 +6,39 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author apena
  */
-@javax.persistence.Entity
-@javax.persistence.Table(name = "pegui")
-@javax.persistence.NamedQueries({
-    @javax.persistence.NamedQuery(name = "Pegui.findAll", query = "SELECT p FROM Pegui p"),
-    @javax.persistence.NamedQuery(name = "Pegui.findByIdPegui", query = "SELECT p FROM Pegui p WHERE p.idPegui = :idPegui"),
-    @javax.persistence.NamedQuery(name = "Pegui.findByTipoPegui", query = "SELECT p FROM Pegui p WHERE p.tipoPegui = :tipoPegui")})
+@Entity
+@Table(name = "pegui")
+@NamedQueries({
+    @NamedQuery(name = "Pegui.findAll", query = "SELECT p FROM Pegui p"),
+    @NamedQuery(name = "Pegui.findByIdPegui", query = "SELECT p FROM Pegui p WHERE p.idPegui = :idPegui"),
+    @NamedQuery(name = "Pegui.findByTipoPegui", query = "SELECT p FROM Pegui p WHERE p.tipoPegui = :tipoPegui")})
 public class Pegui implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @javax.persistence.Basic(optional = false)
-    @javax.persistence.Column(name = "id_pegui")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_pegui")
     private Integer idPegui;
-    @javax.persistence.Column(name = "tipo_pegui")
+    @Column(name = "tipo_pegui")
     private String tipoPegui;
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "idPegui")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPegui")
     private Collection<Juegos> juegosCollection;
 
     public Pegui() {
@@ -83,7 +94,7 @@ public class Pegui implements Serializable {
 
     @Override
     public String toString() {
-        return "metodos.Pegui[ idPegui=" + idPegui + " ]";
+        return "modelos.Pegui[ idPegui=" + idPegui + " ]";
     }
     
 }
