@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -54,11 +55,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtContraseña" promptText="Ej. 1234">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
+                        <PasswordField fx:id="txtContraseña" />
                      </children>
                   </VBox>
                   <VBox HBox.hgrow="ALWAYS">
@@ -71,11 +68,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtConfirmacionContraseña" promptText="Ej. 1234">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
+                        <PasswordField fx:id="txtConfirmacionContraseña" />
                      </children>
                   </VBox>
                </children>

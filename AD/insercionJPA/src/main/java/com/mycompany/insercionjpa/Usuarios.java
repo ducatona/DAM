@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modelo;
+package com.mycompany.insercionjpa;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,6 +22,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +31,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "usuarios")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
     @NamedQuery(name = "Usuarios.findByIdUsuario", query = "SELECT u FROM Usuarios u WHERE u.idUsuario = :idUsuario"),
@@ -85,16 +88,6 @@ public class Usuarios implements Serializable {
 
     public Usuarios(Integer idUsuario, String nombre, String apellidos, Date fechaNac, String alias, String password, String email) {
         this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.fechaNac = fechaNac;
-        this.alias = alias;
-        this.password = password;
-        this.email = email;
-    }
-    
-      public Usuarios( String nombre, String apellidos, Date fechaNac, String alias, String password, String email) {
-        
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNac = fechaNac;
@@ -159,6 +152,7 @@ public class Usuarios implements Serializable {
         this.email = email;
     }
 
+    @XmlTransient
     public Collection<Juegos> getJuegosCollection() {
         return juegosCollection;
     }
@@ -167,6 +161,7 @@ public class Usuarios implements Serializable {
         this.juegosCollection = juegosCollection;
     }
 
+    @XmlTransient
     public Collection<Biblioteca> getBibliotecaCollection() {
         return bibliotecaCollection;
     }
@@ -213,7 +208,7 @@ public class Usuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "modelos.Usuarios[ idUsuario=" + idUsuario + " ]";
+        return "com.mycompany.insercionjpa.Usuarios[ idUsuario=" + idUsuario + " ]";
     }
     
 }

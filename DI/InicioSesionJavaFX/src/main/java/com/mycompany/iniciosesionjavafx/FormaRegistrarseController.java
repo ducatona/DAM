@@ -28,9 +28,12 @@ import javax.persistence.Persistence;
 import metodos.Validaciones;
 import modelo.Nacionalidad;
 import static org.hibernate.criterion.Projections.alias;
-import consultasBBDD.RegistrarUsuarios;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import modelo.Perfil;
+import modelo.Usuarios;
 
 public class FormaRegistrarseController implements Initializable {
 
@@ -95,7 +98,7 @@ public class FormaRegistrarseController implements Initializable {
     @FXML
     private void clickRegistrar(ActionEvent event) {
         Validaciones v = new Validaciones();
-        RegistrarUsuarios ru = new RegistrarUsuarios();
+
         int seleccion = v.obtenerPosicionSeleccion(comboBox);
         int seleccion1 = v.obtenerPosicionSeleccion((ComboBox<String>) ComboBox2);
 
@@ -103,8 +106,38 @@ public class FormaRegistrarseController implements Initializable {
             if (v.comprobarformulario(txtAliasR, txtCorreoElectronico, txtContraseña, txtConfirmacionContraseña)) {
                 try {
 
-                    ru.InsertarUsuario(txtNombre.getText(), txtApellidos.getText(), fecha.getValue(), txtAliasR.getText(), txtContraseña.getText(), txtCorreoElectronico.getText(),
-                            seleccion, seleccion1);
+                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_InicioSesionJavaFX_jar_1.0-SNAPSHOTPU");
+                    EntityManager em = emf.createEntityManager();
+
+                    try {
+                        Usuarios u = new Usuarios();
+                        u.setNombre(txtNombre.getText());
+                        u.setApellidos(txtApellidos.getText());
+                        u.setFechaNac(Date.from(fecha.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                        u.setAlias(txtAliasR.getText());
+                        u.setPassword(txtContraseña.getText());
+                        u.setEmail(txtCorreoElectronico.getText());
+
+                        em.getTransaction().begin();
+
+                        // Obtener el objeto Perfil según la opción seleccionada
+                        Perfil perfilSeleccionado = em.find(Perfil.class, seleccion1);
+                        u.setIdPerfil(perfilSeleccionado);
+
+                        // Obtener el objeto Nacionalidad según la opción seleccionada
+                        Nacionalidad nacionalidadSeleccionada = em.find(Nacionalidad.class, seleccion);
+                        u.setIdNacionalidad(nacionalidadSeleccionada);
+
+                        em.persist(u);
+                        em.getTransaction().commit();
+                    } catch (Exception e) {
+                        if (em.getTransaction().isActive()) {
+                            em.getTransaction().rollback();
+                        }
+                        e.printStackTrace();
+                    } finally {
+                        em.close();
+                    }
 
                     App.setRoot("FormaInicioSesion");
                 } catch (IOException ex) {

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS nacionalidad (
 
 CREATE TABLE IF NOT EXISTS perfil (
     id_perfil INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_usuario ENUM('invitado','usuario','desarrollador','administrador')
+    tipo_usuario ENUM('usuario','desarrollador')
 );
 
 CREATE TABLE IF NOT EXISTS pegui (
@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     fecha_nac DATE NOT NULL,
     alias VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(30) NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     id_nacionalidad INT NOT NULL,
-    id_perfil INT DEFAULT(1),
+    id_perfil INT ,
    
     CONSTRAINT fk_usuarios_nacionalidad FOREIGN KEY (id_nacionalidad) REFERENCES nacionalidad(id_nacionalidad) ON UPDATE NO ACTION ON DELETE NO ACTION,
     CONSTRAINT fk_usuarios_perfil FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil) ON UPDATE CASCADE ON DELETE SET NULL
@@ -58,8 +58,7 @@ CREATE TABLE IF NOT EXISTS juegos (
 CREATE TABLE IF NOT EXISTS biblioteca (
     id_juego INT NOT NULL,
     id_usuario INT NOT NULL,
-    fecha DATE,
-    url VARCHAR(150),
+    fecha DATE default current_timestamp,
     PRIMARY KEY (id_juego, id_usuario),
     CONSTRAINT fk_biblioteca_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_biblioteca_juego FOREIGN KEY (id_juego) REFERENCES juegos(id_juego) ON UPDATE CASCADE ON DELETE RESTRICT

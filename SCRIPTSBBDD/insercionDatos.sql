@@ -11,10 +11,9 @@ INSERT INTO nacionalidad (nacionalidad) VALUES
 
 -- Insertar datos en la tabla perfil
 INSERT INTO perfil (tipo_usuario) VALUES 
-('invitado'),
+
 ('usuario'),
-('desarrollador'),
-('administrador');
+('desarrollador');
 
 -- Insertar datos en la tabla pegui
 INSERT INTO pegui (tipo_pegui) VALUES 
@@ -35,7 +34,7 @@ INSERT INTO generos (nombre_genero, descripcion_genero) VALUES
 
 -- Insertar datos en la tabla usuarios
 INSERT INTO usuarios (nombre, apellidos, fecha_nac, alias, password, email, id_nacionalidad, id_perfil) VALUES 
-('Adrian', 'Pena', '2003-09-01', 'ducatona', '1234', 'adrianpcarnero@gmail.com', 1, 3); -- Cambiado el id_perfil a 3 que corresponde a desarrollador
+('Adrian', 'Pena', '2003-09-01', 'ducatona', '1234', 'adrianpcarnero@gmail.com', 1, 1); -- Cambiado el id_perfil a 3 que corresponde a desarrollador
 
 -- Insertar datos en la tabla juegos
 INSERT INTO juegos (nombre_juego, descripcion, url, url_caratula, id_genero, nivel_dificultad, fecha_creacion, id_desarrollador, id_pegui, precio, descargas_acumuladas) VALUES 
