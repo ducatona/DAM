@@ -15,38 +15,25 @@ public class Principal {
     /**
      * @param args the command line arguments
      */
-  
-    
     public static void main(String[] args) {
-
-        /*
         Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Introduce tu edad");
-        int edad = sc.nextInt();
-        
-        
-        String mensaje = (edad>=18) ? "Mayor de edad " : "Menor de edad";
-        
-        
-        System.out.println(mensaje);
-        
-        
-        
-        
-        System.err.print(mensaje);
-        
-         */
-        int hola;
 
-        String adios = switch (hola) {
+        System.out.println("Introduce un numero");
+        int i = sc.nextInt();
 
-            case 1 -> 
+        String mensaje = switch (i) {
+
+            case 1 ->
+                "hola";
             case 2 ->
+                "hola0";
             case 3 ->
-                
-        };
+                "hola";
+            default ->
+                "nada";
 
+        };
+        System.out.println(mensaje);
     }
 
 }
