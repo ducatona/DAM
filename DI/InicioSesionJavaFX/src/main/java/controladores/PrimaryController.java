@@ -1,5 +1,6 @@
-package com.mycompany.iniciosesionjavafx;
+package controladores;
 
+import main.App;
 import consultasBBDD.Login;
 import java.io.IOException;
 import javafx.event.ActionEvent;

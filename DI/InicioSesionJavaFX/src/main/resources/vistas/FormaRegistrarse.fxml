@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="panelRegistrarse" alignment="CENTER" prefHeight="900.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.iniciosesionjavafx.FormaRegistrarseController">
+<VBox fx:id="panelRegistrarse" alignment="CENTER" prefHeight="900.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.FormaRegistrarseController">
    <children>
       <Label text="Formulario de Registro">
          <font>

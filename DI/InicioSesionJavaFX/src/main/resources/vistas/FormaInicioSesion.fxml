@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="panelInicioSesión" alignment="CENTER" prefHeight="411.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.iniciosesionjavafx.FormaInicioSesionController">
+<VBox fx:id="panelInicioSesión" alignment="CENTER" prefHeight="411.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.FormaInicioSesionController">
    <children>
       <Label text="Iniciar Sesión">
          <font>

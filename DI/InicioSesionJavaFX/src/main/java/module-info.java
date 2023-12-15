@@ -7,9 +7,10 @@
     
     requires org.hibernate.orm.core;
     requires java.sql;
-
+    requires java.base;
+    opens main;
     opens modelo;
     opens metodos;
-    opens com.mycompany.iniciosesionjavafx to javafx.fxml;
-    exports com.mycompany.iniciosesionjavafx;
+    opens controladores ;
+    exports controladores;
 }

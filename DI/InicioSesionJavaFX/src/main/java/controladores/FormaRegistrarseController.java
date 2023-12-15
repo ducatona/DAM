@@ -1,5 +1,6 @@
-package com.mycompany.iniciosesionjavafx;
+package controladores;
 
+import main.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
