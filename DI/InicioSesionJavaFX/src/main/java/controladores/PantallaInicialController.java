@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,11 +45,7 @@ public class PantallaInicialController implements Initializable {
         loadPage("/vistas/home");
     }
 
-    @FXML
-    private void descargas(MouseEvent event) {
-        bp.setCenter(ap);
-         loadPage("/vistas/descargas");
-    }
+   
 
     @FXML
     private void bilbioteca(MouseEvent event) {
@@ -71,8 +68,9 @@ public class PantallaInicialController implements Initializable {
     private void cerrarsesion(MouseEvent event) {
 
     }
-
-    private void loadPage(String page) {
+    
+    
+    public  void loadPage(String page) {
 
         Parent root = null;
 
@@ -88,4 +86,13 @@ public class PantallaInicialController implements Initializable {
         bp.setCenter(root);
 
     }
+
+    @FXML
+    private void coleccion1(MouseEvent event) {
+                bp.setCenter(ap);
+         loadPage("/vistas/coleccion1");
+    }
+
+    
+ 
 }

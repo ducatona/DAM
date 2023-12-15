@@ -72,6 +72,8 @@ public class FormaInicioSesionController implements Initializable {
                     System.out.println("Inicio de sesión exitoso");
 
                     App.setRoot("PantallaInicial");
+                    
+                    
 
                 } else {
                     System.out.println("Contraseña y alias incorrectos ");

@@ -18,7 +18,7 @@
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onMouseClicked="#home" prefHeight="44.0" prefWidth="146.0" style="-fx-background-color: transparent;" text="HOME" textFill="#fffbfb" />
-            <Button mnemonicParsing="false" onMouseClicked="#descargas" prefHeight="44.0" prefWidth="126.0" style="-fx-background-color: transparent;" text="DESCARGAS" textFill="#fffbfb" />
+            <Button mnemonicParsing="false" onMouseClicked="#coleccion1" prefHeight="44.0" prefWidth="126.0" style="-fx-background-color: transparent;" text="COLECCION" textFill="#fffbfb" />
             <Button mnemonicParsing="false" onMouseClicked="#bilbioteca" prefHeight="44.0" prefWidth="148.0" style="-fx-background-color: transparent;" text="BIBLIOTECA" textFill="#fffbfb" />
             <Button mnemonicParsing="false" onMouseClicked="#ajustes" prefHeight="44.0" prefWidth="148.0" style="-fx-background-color: transparent;" text="AJUSTES" textFill="#fffbfb" />
             <Button mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="48.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="REGISTRAR" textFill="#fffbfb">
