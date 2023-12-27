@@ -17,9 +17,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Perro p1 = new Perro(2, "hola", "rosa");
-
-        p1.despierta();
+        
 
     }
 
