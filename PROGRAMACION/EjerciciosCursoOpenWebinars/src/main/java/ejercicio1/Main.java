@@ -4,7 +4,7 @@
  */
 package ejercicio1;
 
-import pruebaformat.Perro;
+
 
 /**
  *
