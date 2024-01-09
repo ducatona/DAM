@@ -1,3 +1,0 @@
-Nombre: Albano
-Edad: 2
-Altura: 1.0
