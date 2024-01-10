@@ -49,5 +49,10 @@
 /PROGRAMACION/ejercicio3.3/build/
 /PROGRAMACION/EjercicioSF/nbproject/private/
 /PROGRAMACION/EjercicioSF/build/
+<<<<<<< HEAD
 /PSP/TransferenciaServer/target/
 /PSP/TransferenciaCliente/target/
+=======
+/PROGRAMACION/ejemploHashmap/nbproject/private/
+/PROGRAMACION/ejemploHashmap/build/
+>>>>>>> a89509a62ef95dc310174c5a325ed0719c86f3bc
