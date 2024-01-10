@@ -17,26 +17,38 @@ public class NumerosPrimos {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("Introduce un numero");
-        int numero = sc.nextInt();
-        
-        
-        
-        if(numero % 2 == 0){
+       
+        while (!sc.hasNextInt()) {
+            System.out.println("Entrada no valida");
+            sc.next();
             
-            System.out.println("El numero no es primo");
-            
-            
-        }else{
-            System.out.println("Es primo");
         }
         
         
+        int numero = sc.nextInt();
+
         
-        
-        
-        
+         esPrimo(numero);
     }
-    
+
+    public static boolean esPrimo(int numero) {
+
+        if (numero <= 1) {
+            System.out.println("No es primo");
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(numero); i++) {
+            if (numero % 1 == 0) {
+                System.out.println("No es primo");
+                return false;
+            }
+
+        }
+     
+        System.out.println("Es primo");
+   return true; 
+    }
 }
